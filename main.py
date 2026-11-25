@@ -1,20 +1,23 @@
 #!/usr/bin/env python3
-"""Monday, Reviewed in One Line (make.fun).
+"""Monday, Reviewed in One Line — a make.fun one-line entry.
 
-Writes the entry -- one-line review of my monday --
-to /output/entry.txt, where the sealed scorer reads it.
+The program writes the entry text to /output/entry.txt, where the
+competition's sealed scorer reads it.
 """
 
-import os
+from pathlib import Path
 
-TEXT = "Monday's review: the standup ran long, the inbox doubled, and by 5pm my coffee had filed for overtime — one star, would not recommend, will be back tomorrow."
+ENTRY = "Monday reviewed: three meetings about meetings, one email avalanche, and a to-do list that reproduced overnight."
+
+OUTPUT = Path("/output/entry.txt")
 
 
-def main():
-    os.makedirs("/output", exist_ok=True)
-    with open("/output/entry.txt", "w", encoding="utf-8") as f:
-        f.write(TEXT)
+def write_entry() -> None:
+    text = ENTRY.strip()
+    assert text, "entry must not be blank"
+    OUTPUT.parent.mkdir(parents=True, exist_ok=True)
+    OUTPUT.write_text(text, encoding="utf-8")
 
 
 if __name__ == "__main__":
-    main()
+    write_entry()
